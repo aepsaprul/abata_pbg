@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\SitumpurCs;
+use App\Models\PbgCs;
+use App\Models\PbgDesain;
 use App\Models\MasterCabang;
 use App\Models\MasterJabatan;
-use App\Models\SitumpurDesain;
+use App\Models\PbgAntrianDesainNomor;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\SitumpurAntrianDesainNomor;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -52,15 +52,15 @@ class MasterKaryawan extends Model
         return $this->hasOne(User::class);
     }
 
-    public function situmpurDesain() {
-        return $this->hasOne(SitumpurDesain::class);
+    public function pbgDesain() {
+        return $this->hasOne(PbgDesain::class);
     }
 
-    public function situmpurCs() {
-        return $this->hasOne(SitumpurCs::class);
+    public function pbgCs() {
+        return $this->hasOne(PbgCs::class);
     }
 
-    public function situmpurAntrianDesainNomor() {
-        return $this->hasMany(SitumpurAntrianDesainNomor::class);
+    public function pbgAntrianDesainNomor() {
+        return $this->hasMany(PbgAntrianDesainNomor::class);
     }
 }

@@ -310,7 +310,7 @@
                     <a href="{{ url('/pbg/customer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
-                        Customer
+                        Data Customer
                       </p>
                     </a>
                   </li>
@@ -321,7 +321,7 @@
                     <a href="{{ url('/pbg/desain') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
-                        Desain
+                        Data Desain
                       </p>
                     </a>
                   </li>
@@ -332,7 +332,7 @@
                     <a href="{{ url('/pbg/cs') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
                       <p>
-                        CS
+                        Data CS
                       </p>
                     </a>
                   </li>
@@ -340,7 +340,7 @@
                 
                 <li class="nav-header p-2">Antrian</li>
                 
-                @if (in_array("9", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("23", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/pbg/antrian/customer') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -351,7 +351,7 @@
                   </li>              
                 @endif
   
-                @if (in_array("10", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("25", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/pbg/antrian/cs') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -362,7 +362,7 @@
                   </li>              
                 @endif
   
-                @if (in_array("11", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("26", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/pbg/antrian/desain') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
@@ -373,7 +373,7 @@
                   </li>              
                 @endif
   
-                @if (in_array("12", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
+                @if (in_array("27", json_decode(Auth::user()->load('masterKaryawan.masterJabatan')->masterKaryawan->masterJabatan->menu_akses)))
                   <li class="nav-item">
                     <a href="{{ url('/pbg/antrian/display') }}" class="nav-link">
                       <i class="nav-icon fas fa-copy"></i>
