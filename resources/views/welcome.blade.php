@@ -185,7 +185,7 @@
                     <img src="{{ asset('assets/img/logo.png') }}" alt="logo abata">
                 </div>
                 <div class="nav">
-                    <a href="#">Home</a>
+                    <a href="login">Login</a>
                 </div>
                 <div class="medsos">
                     <img src="{{ asset('assets/img/youtube.png') }}" alt="youtube">
