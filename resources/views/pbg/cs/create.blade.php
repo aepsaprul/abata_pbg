@@ -29,11 +29,11 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/situmpur/cs') }}">BACK</a></h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/pbg/cs') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form role="form" action="{{ route('situmpur.cs.store') }}" method="POST">
+						<form role="form" action="{{ route('pbg.cs.store') }}" method="POST">
 							@csrf
 							<div class="card-body">
 								<div class="form-group">

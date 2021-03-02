@@ -57,7 +57,7 @@
 											<td>{{ $customer->nama_customer }}</td>
 											<td>{{ $customer->telepon }}</td>
 											<td class="text-center">
-												<a href="{{ route('customer.edit', [$customer->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('customer.delete', [$customer->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
+												{{-- <a href="{{ route('customer.edit', [$customer->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('customer.delete', [$customer->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a> --}}
 											</td>
 										</tr>
 									

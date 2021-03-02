@@ -61,7 +61,7 @@
 											<td>Desain {{ $desain->nomor }}</td>
 											<td>{{ $desain->masterKaryawan ? $desain->masterKaryawan->nama_lengkap : '-' }}</td>
 											<td class="text-center">
-												<a href="{{ route('situmpur.desain.edit', [$desain->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('situmpur.desain.delete', [$desain->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
+												<a href="{{ route('pbg.desain.edit', [$desain->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('pbg.desain.delete', [$desain->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									

@@ -149,7 +149,7 @@
 					telepon: telepon
 				},
 				success: function(response) {
-					var url = "http://localhost/github/abata/public/pbg/antrian/customer";    
+					var url = "http://localhost/github/abata_pbg/public/pbg/antrian/customer";    
 					$(location).attr('href',url);
 				}
 			});

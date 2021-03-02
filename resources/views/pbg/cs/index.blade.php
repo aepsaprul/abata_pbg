@@ -61,7 +61,7 @@
 											<td>CS {{ $cs->nomor }}</td>
 											<td>{{ $cs->masterKaryawan ? $cs->masterKaryawan->nama_lengkap : '-' }}</td>
 											<td class="text-center">
-												<a href="{{ route('situmpur.cs.edit', [$cs->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('situmpur.cs.delete', [$cs->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
+												<a href="{{ route('pbg.cs.edit', [$cs->id]) }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a> | <a href="{{ route('pbg.cs.delete', [$cs->id]) }}" class="btn btn-danger" onclick="return confirm('Yakin akan dihapus?')"><i class="fa fa-trash"></i></a>
 											</td>
 										</tr>
 									

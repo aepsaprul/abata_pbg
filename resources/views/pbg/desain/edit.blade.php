@@ -29,11 +29,11 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/situmpur/desain') }}">BACK</a></h3>
+							<h3 class="card-title"><i class="fa fa-arrow-left"></i> <a href="{{ url('/pbg/desain') }}">BACK</a></h3>
 						</div>
 						<!-- /.card-header -->
 						<!-- form start -->
-						<form role="form" action="{{ route('situmpur.desain.update', [$desain->id]) }}" method="POST">
+						<form role="form" action="{{ route('pbg.desain.update', [$desain->id]) }}" method="POST">
 							@method('PUT')
 							@csrf
 							<div class="card-body">
