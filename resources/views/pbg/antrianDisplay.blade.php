@@ -283,6 +283,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			margin: 0;
 			padding: 0;
 			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 1.5em;
 		}
 	</style>
 </head>

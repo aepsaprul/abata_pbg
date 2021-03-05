@@ -25,7 +25,7 @@
 			DESAIN / EDIT
 		</a>
 		<a href="{{ url('pbg/antrian/customer/3/form') }}" class="btn-konsultasi btn btn-block btn-primary pt-3 pb-3 pr-5 pl-5" style="font-size: 2em; font-weight: bold;">
-			KONSULTASI
+			KONSULTASI CS
 		</a>
 	</div>
 </div>
