@@ -27,7 +27,7 @@
 				"<div class=\"col-md-2\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
-						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
+						"<p class=\"nomor-antrian\">C " + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
 						// "<p class=\"nomor-filter\">" + data.customer_filter_id + "</p>";
 						"<a href=\"cs/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +

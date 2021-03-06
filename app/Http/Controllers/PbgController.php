@@ -279,7 +279,7 @@ class PbgController extends Controller
         $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->update(['mulai' => Carbon::now()]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->where('status', '0')->update(['mulai' => Carbon::now()]);
 
-        $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->first();
+        $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->where('status', 1)->first();
         $antrianNomor->status = 2;
         $antrianNomor->save();
 
@@ -293,9 +293,9 @@ class PbgController extends Controller
     public function antrianCsSelesai($nomor)
     {
         $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->update(['selesai' => Carbon::now()]);
-        $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->where('status', '0')->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1]);
+        $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->where('status', '0')->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1, 'tanggal' => Carbon::now()]);
 
-        $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->first();
+        $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->where('status', 2)->first();
         $antrianNomor->status = 3;
         $antrianNomor->save();
 
@@ -429,7 +429,7 @@ class PbgController extends Controller
 
     public function antrianDesainPanggil($nomor)
     {
-        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
+        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->where('status', 0)->first();
         $antrianNomor->status = 1;
         $antrianNomor->master_karyawan_id = Auth::user()->master_karyawan_id;
         $antrianNomor->save();
@@ -495,7 +495,7 @@ class PbgController extends Controller
         $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'desain')->update(['mulai' => Carbon::now()]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'desain')->where('status', '0')->update(['mulai' => Carbon::now()]);
 
-        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
+        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->where('status', 1)->first();
         $antrianNomor->status = 2;
         $antrianNomor->master_karyawan_id = Auth::user()->master_karyawan_id;
         $antrianNomor->save();
@@ -519,9 +519,9 @@ class PbgController extends Controller
             ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)
             ->where('jabatan', 'desain')->where('status', '0')
-            ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1]);
+            ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1, 'tanggal' => Carbon::now()]);
 
-        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->first();
+        $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->where('status', 2)->first();
         $antrianNomor->status = 3;
         $antrianNomor->save();
 

@@ -31,7 +31,7 @@
 				"<div class=\"col-md-2\">" +
 					"<div class=\"nomor\">" +
 						"<p class=\"nomor-title\">Antrian</p>" +
-						"<p class=\"nomor-antrian\">" + data.nomor_antrian + "</p>" +
+						"<p class=\"nomor-antrian\">D " + data.nomor_antrian + "</p>" +
 						"<p class=\"nomor-nama\">" + data.nama + "</p>" +
 						"<p class=\"nomor-filter\">" + title_filter + "</p>" +
 						"<a href=\"desain/" + data.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>" +
@@ -162,6 +162,9 @@
 					<a href="{{ url('pbg/antrian/desain/' . $karyawan->pbgDesain->id . '/off') }}" class="btn btn-success">Komputer ON</a>
 				@endif
 			</p>
+			<p>
+				
+			</p>
 			<hr>
 			<div class="row">
 				<div class="col-12">
@@ -223,7 +226,7 @@
 									"<p class=\"nomor-nama\">" + value.nama_customer + "</p>" +
 									"<p class=\"nomor-filter\">" + title_filter + "</p>";
 									if (value.status == 0) {
-										queryNomorAntrian += "<a href=\"desain/" + value.id + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
+										queryNomorAntrian += "<a href=\"desain/" + value.nomor_antrian + "/panggil\" class=\"btn btn-primary btn-block\">Panggil</a>";
 									}
 									if (value.status == 1) {
 										if (value.customer_filter_id == 2) {
@@ -231,13 +234,13 @@
 										} else {
 											queryNomorAntrian += "" +
 											"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
-											"<a href=\"desain/" + value.id + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
+											"<a href=\"desain/" + value.nomor_antrian + "/mulai\" class=\"btn btn-info btn-block\">Mulai</a>";
 										}
 									}
 									if (value.status == 2) {
 										queryNomorAntrian += "" +
 										"<p class=\"nomor-desain\">" + value.master_karyawan.nama_panggilan + "</p>" +
-										"<a href=\"desain/" + value.id + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
+										"<a href=\"desain/" + value.nomor_antrian + "/selesai\" class=\"btn btn-success btn-block\">Selesai</a>";
 									}								
 									queryNomorAntrian += "</div>";
 							"</div>";
