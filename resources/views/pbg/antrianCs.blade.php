@@ -175,7 +175,7 @@
 				success: function(response) {
 					$.each(response.data, function(i, value) {
 						var queryNomorAntrian = "" +
-							"<div class=\"col-md-2\">" +
+							"<div class=\"col-md-2 col-sm-6 col-xs-6\">" +
 								"<div class=\"nomor\">" +
 									"<p class=\"nomor-title\">Antrian</p>" +
 									"<p class=\"nomor-antrian\">C " + value.nomor_antrian + "</p>" +

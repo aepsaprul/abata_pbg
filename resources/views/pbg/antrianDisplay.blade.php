@@ -57,6 +57,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		
 			$('.antrian_cs').append(queryNomorAntrian);
 			$('.number-cs').append(queryNomorAntrian);
+
+			antrianCs(data.antrian_nomor);
 			
 		});
 		// update ketika cs klik mulai 
@@ -427,6 +429,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+<audio src="{{ asset('assets/ringtone/suara_antrian.mp3') }}" id="notif" controls style="display: none;"></audio>
+<audio src="{{ asset('assets/ringtone/antrian.wav') }}" id="nomor_antrian" controls style="display: none;"></audio>
+<audio src="{{ asset('assets/ringtone/c.wav') }}" id="c" controls style="display: none;"></audio>
+<audio src="{{ asset('assets/ringtone/d.wav') }}" id="d" controls style="display: none;"></audio>
+
+@for ($i = 1; $i < 20; $i++)
+	<audio src="{{ asset('assets/ringtone/'.$i.'.wav') }}" id="angka-@php echo $i @endphp" controls></audio>
+@endfor
+
+@for ($j = 20; $j < 100; $j+=10)
+	<audio src="{{ asset('assets/ringtone/'.$j.'.wav') }}" id="angka-@php echo $j @endphp" controls></audio>
+@endfor
+
+@for ($k = 100; $k <= 500; $k+=100)
+	<audio src="{{ asset('assets/ringtone/'.$k.'.wav') }}" id="angka-@php echo $k @endphp" controls></audio>
+@endfor
+
+<audio src="{{ asset('assets/ringtone/counter.wav') }}" id="ke" controls style="display: none;"></audio>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -435,5 +456,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+
+<script>
+	var myVar;
+	// antrianCs(2);
+	function antrianCs(angka) {
+		myVar = setTimeout(function(){ document.getElementById("notif").play(); }, 1000);
+		myVar = setTimeout(function(){ document.getElementById("nomor_antrian").play(); }, 3000);
+		myVar = setTimeout(function(){ document.getElementById("c").play(); }, 5000);
+
+		for (let index = 0; index < 100; index+=10) {
+			for (let index1 = 1; index1 <= 10; index1++) {
+				var merge_angka = index + index1;
+				if (angka == 30 || angka == 40 || angka == 50 || angka == 60 || angka == 70 || angka == 80 || angka == 90) {
+					myVar = setTimeout(function(){ document.getElementById("angka-" + angka).play(); }, 6000);
+				} else if (merge_angka == angka && angka > 20) {
+						myVar = setTimeout(function(){ document.getElementById("angka-" + index).play(); }, 6000);
+						myVar = setTimeout(function(){ document.getElementById("angka-" + index1).play(); }, 7000);
+				} else{
+					myVar = setTimeout(function(){ document.getElementById("angka-" + angka).play(); }, 6000);
+				}		
+			}
+		}
+		
+		myVar = setTimeout(function(){ document.getElementById("ke").play(); }, 8000);
+		myVar = setTimeout(function(){ document.getElementById("angka-1").play(); }, 10000);
+	}
+
+	function antrianDesain() {
+		myVar = setTimeout(function(){ document.getElementById("notif").play(); }, 1000);
+		myVar = setTimeout(function(){ document.getElementById("nomor_antrian").play(); }, 3000);
+		myVar = setTimeout(function(){ document.getElementById("d").play(); }, 5000);
+		myVar = setTimeout(function(){ document.getElementById("angka-").play(); }, 6000);
+		myVar = setTimeout(function(){ document.getElementById("ke").play(); }, 8000);
+		myVar = setTimeout(function(){ document.getElementById("angka1").play(); }, 10000);
+	}
+	</script>
 </body>
 </html>

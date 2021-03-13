@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 
 	<style>
+		.login-box {
+			margin-top: -300px;
+		}
 		.telepon .telepon-data {
 			display: none;
 			list-style: none;
@@ -58,19 +61,20 @@
   </div>
 	<div class="social-auth-links text-center mb-3">
 		<div class="card">
-			<form role="form" class="form-customer">
+			<form role="form" action="{{ route('pbg.antrian.customer.store') }}" method="POST">
+				@csrf
 				<div class="card-body">
 					<div class="form-group">
-						<input type="hidden" class="form-control" id="customer_filter_id" value="{{ $customer_filter_id }}" disabled>
+						<input type="hidden" class="form-control" id="customer_filter_id" name="customer_filter_id" value="{{ $customer_filter_id }}">
 					</div>
 					<div class="form-group">
-						<input type="hidden" class="form-control" id="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif" disabled>
+						<input type="hidden" class="form-control" id="nomor_antrian" name="nomor_antrian" value="@if (is_null($nomors)){{ 0 + 1 }}@else{{ $nomors->nomor_antrian + 1 }}@endif">
 					</div>
 					<div class="form-group">
-						<input type="hidden" class="form-control" id="sisa_antrian" value="{{ $count_nomor_all - $count_nomor_panggil }}" disabled>
+						<input type="hidden" class="form-control" id="sisa_antrian" name="sisa_antrian" value="{{ $count_nomor_all - $count_nomor_panggil }}">
 					</div>
 					<div class="form-group">
-						<input type="tel" class="form-control" id="telepon" autocomplete="off" required placeholder="Masukkan nomor telepon">
+						<input type="tel" class="form-control" id="telepon" name="telepon" maxlength="13" autocomplete="off" required placeholder="Masukkan nomor telepon">
 						<div class="telepon">
 							<ul class="telepon-data">
 								{{-- data  --}}
@@ -78,7 +82,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="nama" required placeholder="Masukkan nama">
+						<input type="text" class="form-control" id="nama" name="nama_customer" required placeholder="Masukkan nama">
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-block">Cetak</button>
@@ -104,21 +108,23 @@
 		$("#telepon").on("keyup", function() {
 			$('.telepon .telepon-data').empty();
 			var value = $(this).val();
-			$.ajax({
-				url: '{{ URL::route('pbg.antrian.customer.search') }}',
-				type: 'POST',
-				data: {
-					_token: CSRF_TOKEN,
-					value: value
-				},
-				success: function(response) {
-					$.each(response.customers, function (i, value) {
-						var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + "-" + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
-						$('.telepon .telepon-data').append(data_customers);
-					});
-					$('.telepon .telepon-data').css('display', 'block');
-				}
-			});
+			if (value.length >= 10) {
+				$.ajax({
+					url: '{{ URL::route('pbg.antrian.customer.search') }}',
+					type: 'POST',
+					data: {
+						_token: CSRF_TOKEN,
+						value: value
+					},
+					success: function(response) {
+						$.each(response.customers, function (i, value) {
+							var data_customers = "<li><button class=\"btn-data-customer\" data-value=\"" + value.telepon + "-" + value.nama_customer + "\">" + value.telepon + " | " + value.nama_customer + "</button></li>";
+							$('.telepon .telepon-data').append(data_customers);
+						});
+						$('.telepon .telepon-data').css('display', 'block');
+					}
+				});
+			}
 		});
 
 		$('.telepon').on('click', '.btn-data-customer', function (e) {
@@ -128,46 +134,6 @@
 			$("#telepon").val(b[0]);
 			$("#nama").val(b[1]);
 			$('.telepon .telepon-data').css('display', 'none');
-		});
-
-		$('.form-customer').on('submit', function(e) {
-			e.preventDefault();
-
-			var nomor_antrian = $('#nomor_antrian').val();
-			var customer_filter_id = btnVal;
-			var nama = $('#nama').val();
-			var telepon = $('#telepon').val();
-
-			$.ajax({
-				url: '{{ URL::route('pbg.antrian.customer.store') }}',
-				type: 'POST',
-				data: {
-					_token: CSRF_TOKEN,
-					customer_filter_id: customer_filter_id,
-					nomor_antrian: nomor_antrian,
-					nama_customer: nama,
-					telepon: telepon
-				},
-				success: function(response) {
-					var url = "http://localhost/github/abata_pbg/public/pbg/antrian/customer";    
-					$(location).attr('href',url);
-					console.log(response.data);
-				}
-			});
-		});
-
-		$('.form-customer').on('submit', function(e) {
-			var nomor_antrian = "D " + $('#nomor_antrian').val();
-			var sisa_antrian = $('#sisa_antrian').val();
-
-			$.ajax({
-				url: 'http://localhost/test/escpos/vendor/mike42/escpos-php/example/barcode.php',
-				type: 'POST',
-				data: {
-					nomor_antrian: nomor_antrian,
-					sisa_antrian: sisa_antrian
-				}
-			});
 		});
 	});
 </script>

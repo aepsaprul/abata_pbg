@@ -8,7 +8,6 @@ use App\Models\PbgDesain;
 use Illuminate\Http\Request;
 use App\Models\MasterCustomer;
 use App\Models\MasterKaryawan;
-use App\Models\PbgAntrianSimpan;
 use App\Models\AntrianPengunjung;
 use App\Models\PbgAntrianCsNomor;
 use App\Events\PbgAntrianCsDisplay;
@@ -17,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\PbgAntrianDesainNomor;
 use App\Events\PbgAntrianDesainDisplay;
 use App\Events\PbgAntrianCustomerDesain;
+use Illuminate\Support\Facades\Redirect;
 use App\Events\PbgAntrianCsStatusDisplay;
 use App\Events\PbgAntrianCsSelesaiDisplay;
 use App\Events\PbgAntrianCustomerDisplayCs;
@@ -75,9 +75,6 @@ class PbgController extends Controller
             event(new PbgAntrianCustomerDisplayCs($antrian_total));
 
             $antrianNomors = new PbgAntrianCsNomor;
-            
-            $antrianNomorSimpans = new PbgAntrianSimpan;
-            $antrianNomorSimpans->jabatan = "cs";
 
             $antrianPengunjung = new AntrianPengunjung;
             $antrianPengunjung->jabatan = "cs";
@@ -88,9 +85,6 @@ class PbgController extends Controller
             event(new PbgAntrianCustomerDisplayDesain($antrian_total));
 
             $antrianNomors = new PbgAntrianDesainNomor;
-            
-            $antrianNomorSimpans = new PbgAntrianSimpan;
-            $antrianNomorSimpans->jabatan = "desain";
 
             $antrianPengunjung = new AntrianPengunjung;
             $antrianPengunjung->jabatan = "desain";
@@ -115,9 +109,9 @@ class PbgController extends Controller
         $antrianPengunjung->customer_filter_id = $request->customer_filter_id;
         $antrianPengunjung->save();
 
-        return response()->json([
-            'success' => 'data berhasil disimpan'
-        ]);
+        
+        $url = "http://localhost/test/escpos/vendor/mike42/escpos-php/example/barcode.php?nomor_antrian=".$request->nomor_antrian."&sisa_antrian=".$request->sisa_antrian;
+        return Redirect::to($url);
     }
 
     public function antrianCustomerForm(Request $request, $id)
@@ -276,7 +270,6 @@ class PbgController extends Controller
 
     public function antrianCsMulai($nomor)
     {
-        $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->update(['mulai' => Carbon::now()]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->where('status', '0')->update(['mulai' => Carbon::now()]);
 
         $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->where('status', 1)->first();
@@ -292,7 +285,6 @@ class PbgController extends Controller
 
     public function antrianCsSelesai($nomor)
     {
-        $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->update(['selesai' => Carbon::now()]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'cs')->where('status', '0')->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1, 'tanggal' => Carbon::now()]);
 
         $antrianNomor = PbgAntrianCsNomor::where('nomor_antrian', $nomor)->where('status', 2)->first();
@@ -451,10 +443,6 @@ class PbgController extends Controller
             $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $request->nomor)->first();
             $antrianNomor->customer_filter_id = 4;
             $antrianNomor->save();
-    
-            $antrianNomorSimpan = PbgAntrianSimpan::where('nomor_antrian', $request->nomor)->first();
-            $antrianNomorSimpan->customer_filter_id = 4;
-            $antrianNomorSimpan->save();
 
             $antrianPengunjung = AntrianPengunjung::where('nomor_antrian', $request->nomor)
                 ->where('jabatan', 'desain')
@@ -466,10 +454,6 @@ class PbgController extends Controller
             $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $request->nomor)->first();
             $antrianNomor->customer_filter_id = 5;
             $antrianNomor->save();
-
-            $antrianNomorSimpan = PbgAntrianSimpan::where('nomor_antrian', $request->nomor)->first();
-            $antrianNomorSimpan->customer_filter_id = 5;
-            $antrianNomorSimpan->save();
 
             $antrianPengunjung = AntrianPengunjung::where('nomor_antrian', $request->nomor)
                 ->where('jabatan', 'desain')
@@ -492,7 +476,6 @@ class PbgController extends Controller
 
     public function antrianDesainMulai($nomor)
     {
-        $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)->where('jabatan', 'desain')->update(['mulai' => Carbon::now()]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)->where('jabatan', 'desain')->where('status', '0')->update(['mulai' => Carbon::now()]);
 
         $antrianNomor = PbgAntrianDesainNomor::where('nomor_antrian', $nomor)->where('status', 1)->first();
@@ -512,11 +495,17 @@ class PbgController extends Controller
         return redirect()->route('pbg.antrian.desain', ['status_desainer' => $status_desainer]);
     }
 
+    public function antrianDesainMulaiCounter(Request $request)
+    {
+        $dataCounter = PbgAntrianDesainNomor::where('nomor_antrian', $request->nomor)->first();
+
+        return response()->json([
+            'dataCounter' => $dataCounter
+        ]);
+    }
+
     public function antrianDesainSelesai($nomor)
     {
-        $antrianNomor = PbgAntrianSimpan::where('nomor_antrian', $nomor)
-            ->where('jabatan', 'desain')
-            ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id]);
         $antrianNomor = AntrianPengunjung::where('nomor_antrian', $nomor)
             ->where('jabatan', 'desain')->where('status', '0')
             ->update(['selesai' => Carbon::now(), 'master_karyawan_id' => Auth::user()->master_karyawan_id, 'master_cabang_id' => 5, 'status' => 1, 'tanggal' => Carbon::now()]);

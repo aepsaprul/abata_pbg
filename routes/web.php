@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('pbg/antrian/desain/{nomor}/jenis/{nama_jenis}', [PbgController::class, 'antrianDesainUpdate'])->name('pbg.antrian.desain.update');
     Route::get('pbg/antrian/desain/{nomor}/edit', [PbgController::class, 'antrianDesainUpdateEdit'])->name('pbg.antrian.desain.updateedit');
     Route::get('pbg/antrian/desain/{nomor}/mulai', [PbgController::class, 'antrianDesainMulai'])->name('pbg.antrian.desain.mulai');
+    Route::get('pbg/antrian/desain/mulai/counter', [PbgController::class, 'antrianDesainMulaiCounter'])->name('pbg.antrian.desain.mulai.counter');
     Route::get('pbg/antrian/desain/{nomor}/selesai', [PbgController::class, 'antrianDesainSelesai'])->name('pbg.antrian.desain.selesai');
 
     // customer 
